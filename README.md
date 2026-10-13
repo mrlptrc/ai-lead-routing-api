@@ -1,8 +1,8 @@
-# LeadFlow
+# AI Lead Routing API
 
-**AI-assisted lead intake, intent classification, and workflow routing.**
+**An AI-assisted lead intake and routing service built with Fastify, Supabase, and n8n.**
 
-LeadFlow receives incoming inquiries, classifies them as sales, support, or other, stores them in Supabase, and routes them through n8n to the right Google Sheets tab. It combines a small REST API with an automation workflow that can be adapted to different lead sources and destinations.
+The API accepts incoming inquiries, classifies each as sales, support, or other, stores it in Supabase, and routes it through n8n to the matching Google Sheets tab. The workflow can be adapted to different lead sources and destinations.
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-111111?style=flat-square&logo=typescript&logoColor=white)
 ![Fastify](https://img.shields.io/badge/Fastify-111111?style=flat-square&logo=fastify&logoColor=white)
@@ -129,4 +129,4 @@ n8n/       Lead intake and routing workflow
 
 ## Project status
 
-LeadFlow is a personal project and a starting point for experimenting with AI-assisted lead intake and workflow automation. The n8n workflow requires your own Google Sheets credentials and spreadsheet configuration.
+This is a personal project for experimenting with AI-assisted lead intake and workflow automation. The n8n workflow requires your own Google Sheets credentials and spreadsheet configuration.
