@@ -2,20 +2,32 @@ import type { FastifyInstance } from "fastify";
 import {
   createLeadHandler,
   getLeadHandler,
+  getLeadStatsHandler,
   listLeadsHandler,
 } from "../controllers/lead.controller";
+import { authenticate } from "../middlewares/auth.middleware";
 
 /**
- * Plugin de rotas para /leads.
- * Registrado com prefixo /leads no servidor principal.
+ * Plugin de rotas protegidas para /leads.
  */
 export async function leadRoutes(fastify: FastifyInstance): Promise<void> {
-  // POST /leads — cria um novo lead (com classificação por IA)
-  fastify.post("/", createLeadHandler);
+  fastify.addHook("onRequest", authenticate);
 
-  // GET /leads — lista leads com paginação e filtros
+  fastify.get("/stats", getLeadStatsHandler);
+
+  fastify.post(
+    "/",
+    {
+      config: {
+        rateLimit: {
+          max: 10,
+          timeWindow: "1 minute",
+        },
+      },
+    },
+    createLeadHandler
+  );
+
   fastify.get("/", listLeadsHandler);
-
-  // GET /leads/:id — busca lead por ID
   fastify.get("/:id", getLeadHandler);
 }

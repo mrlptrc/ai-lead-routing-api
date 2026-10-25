@@ -1,6 +1,6 @@
 import { getSupabaseClient } from "../config/supabase";
 import { logger } from "../config/logger";
-import { classifyIntent } from "./ai-fallback.service";
+import { classifyIntent } from "./ai.service";
 import type {
   CreateLeadDTO,
   Lead,
