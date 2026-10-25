@@ -1,5 +1,7 @@
 # AI Lead Routing API
 
+[![ci](https://github.com/mrlptrc/ai-lead-routing-api/actions/workflows/ci.yml/badge.svg)](https://github.com/mrlptrc/ai-lead-routing-api/actions/workflows/ci.yml)
+
 **An AI-assisted lead intake and routing service built with Fastify, Supabase, and n8n.**
 
 The API accepts incoming inquiries, classifies each as sales, support, or other, stores it in Supabase, and routes it through n8n to the matching Google Sheets tab. The workflow can be adapted to different lead sources and destinations.
@@ -25,13 +27,14 @@ Fastify API ── classify intent with OpenAI or Anthropic
 Supabase / PostgreSQL
     │
     ▼
-n8n ── route to Sales, Support, or Other in Google Sheets
+n8n ── route to the Vendas, Suporte, or Outros tab in Google Sheets
 ```
 
 ## Features
 
 - Lead intake with name and message validation
-- Intent classification into `SALES`, `SUPPORT`, or `OTHER`
+- Intent classification into `VENDAS` (sales), `SUPORTE` (support), or `OUTROS` (other)
+- LLM output validated with Zod; invalid responses fall through to the next provider
 - Configurable OpenAI and Anthropic providers with keyword fallback
 - Supabase persistence and paginated lead search
 - JWT-protected API routes and rate limits
@@ -119,6 +122,18 @@ curl -X POST http://localhost:3000/leads \
   -d '{"name":"Alex Silva","message":"I would like to learn more about the Pro plan"}'
 ```
 
+## Development
+
+```bash
+cd backend
+npm install
+npm run lint
+npm run typecheck
+npm test
+```
+
+Tests run with Vitest and need no external services: Supabase is mocked and, without AI keys, classification uses the keyword fallback. CI runs the same steps on every push and pull request.
+
 ## Project structure
 
 ```text
@@ -126,6 +141,10 @@ backend/   Fastify API, authentication, lead storage, and AI classification
 docs/      Supabase database schema
 n8n/       Lead intake and routing workflow
 ```
+
+## License
+
+[MIT](LICENSE)
 
 ## Project status
 

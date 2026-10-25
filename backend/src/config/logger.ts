@@ -20,7 +20,7 @@ export const logger = pino({
       }
     : {}),
   base: {
-    service: "crm-automation",
+    service: "ai-lead-routing-api",
     env: env.NODE_ENV,
   },
 });

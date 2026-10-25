@@ -6,7 +6,7 @@ import { env } from "./config/env";
 import { logger } from "./config/logger";
 import { registerErrorHandler } from "./middlewares/error.handler";
 import { authRoutes } from "./routes/auth.routes";
-import { leadRoutes } from "./routes/lead-secure.routes";
+import { leadRoutes } from "./routes/lead.routes";
 import type { ApiResponse } from "./types";
 
 /**
@@ -31,7 +31,7 @@ export async function buildApp() {
     global: true,
     max: 60,
     timeWindow: "1 minute",
-    errorResponseBuilder: (_request) =>
+    errorResponseBuilder: () =>
       ({
         success: false,
         error: "Limite de requisições excedido. Tente novamente em instantes.",
